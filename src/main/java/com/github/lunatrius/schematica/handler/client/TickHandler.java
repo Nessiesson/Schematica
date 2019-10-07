@@ -33,7 +33,7 @@ public class TickHandler {
     @SubscribeEvent
     public void onClientDisconnect(final FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
         Reference.logger.info("Scheduling client settings reset.");
-        ClientProxy.isPendingReset = true;
+        // ClientProxy.isPendingReset = true;
     }
 
     @SubscribeEvent

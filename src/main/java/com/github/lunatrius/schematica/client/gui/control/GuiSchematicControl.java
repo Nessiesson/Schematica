@@ -14,12 +14,16 @@ import com.github.lunatrius.schematica.reference.Constants;
 import com.github.lunatrius.schematica.reference.Names;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.client.config.GuiUnicodeGlyphButton;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 public class GuiSchematicControl extends GuiScreenBase {
     private final SchematicWorld schematic;
@@ -59,10 +63,22 @@ public class GuiSchematicControl extends GuiScreenBase {
     private final String strOn = I18n.format(Names.Gui.ON);
     private final String strOff = I18n.format(Names.Gui.OFF);
 
+    private final Field guiTextField;
+
     public GuiSchematicControl(final GuiScreen guiScreen) {
         super(guiScreen);
         this.schematic = ClientProxy.schematic;
         this.printer = SchematicPrinter.INSTANCE;
+
+        Field temp;
+        try {
+            temp = ReflectionHelper.findField(GuiNumericField.class, "guiTextField");
+            temp.setAccessible(true);
+        } catch (Exception ignored) {
+            temp = null;
+        }
+
+        this.guiTextField = temp;
     }
 
     @Override
@@ -231,6 +247,26 @@ public class GuiSchematicControl extends GuiScreenBase {
         if (this.btnRotate.enabled) {
             this.btnRotate.packedFGColour = isShiftKeyDown() ? 0xFF0000 : 0x000000;
         }
+
+        final int key = Keyboard.getEventKey();
+        if (key == Keyboard.KEY_TAB && Keyboard.getEventKeyState()) {
+            if (this.numericX.isFocused()) {
+                this.setTextFieldFocus(this.numericX, false);
+                this.setTextFieldFocus(this.numericY, true);
+            } else if (this.numericY.isFocused()) {
+                this.setTextFieldFocus(this.numericY, false);
+                this.setTextFieldFocus(this.numericZ, true);
+            } else if (this.numericZ.isFocused()) {
+                this.setTextFieldFocus(this.numericZ, false);
+                this.setTextFieldFocus(this.numericX, true);
+            }
+        }
+    }
+
+    private void setTextFieldFocus(GuiNumericField field, boolean focused) {
+        try {
+            ((GuiTextField) this.guiTextField.get(field)).setFocused(focused);
+        } catch (Exception ignored) {}
     }
 
     @Override
