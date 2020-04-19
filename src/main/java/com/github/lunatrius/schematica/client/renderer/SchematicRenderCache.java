@@ -18,6 +18,7 @@ public class SchematicRenderCache extends ChunkCache {
 
     @Override
     public IBlockState getBlockState(final BlockPos pos) {
+        try {
         final BlockPos schPos = ClientProxy.schematic.position;
         if (schPos == null) {
             return Blocks.AIR.getDefaultState();
@@ -26,10 +27,14 @@ public class SchematicRenderCache extends ChunkCache {
         final BlockPos realPos = pos.add(schPos);
         final World world = this.minecraft.world;
 
-        if (world == null || !world.isAirBlock(realPos) && !ConfigurationHandler.isExtraAirBlock(world.getBlockState(realPos).getBlock())) {
-            return Blocks.AIR.getDefaultState();
-        }
+            if (world == null || !world.isAirBlock(realPos) && !ConfigurationHandler.isExtraAirBlock(world.getBlockState(realPos).getBlock())) {
+                return Blocks.AIR.getDefaultState();
+            }
 
         return super.getBlockState(pos);
+
+        } catch (Exception ignored) {
+            return Blocks.AIR.getDefaultState();
+        }
     }
 }
