@@ -25,7 +25,9 @@ public class SchematicChunkRenderContainerVbo extends SchematicChunkRenderContai
                 renderChunk.multModelviewMatrix();
                 vertexbuffer.bindBuffer();
                 setupArrayPointers();
-                vertexbuffer.drawArrays(GL11.GL_QUADS);
+                try {
+                    vertexbuffer.drawArrays(GL11.GL_QUADS);
+                } catch (Exception ignored) {}
                 GlStateManager.popMatrix();
             }
 
