@@ -23,6 +23,7 @@ public class Paster {
         int count = 0;
         List<String> placeAfterwards = new ArrayList<>();
         mcWorld.sendPacketToServer(new CPacketChatMessage("/gamerule sendCommandFeedback false"));
+        mcWorld.sendPacketToServer(new CPacketChatMessage("/gamerule doTileDrops false"));
         for (final MBlockPos pos : BlockPosHelper.getAllInBox(BlockPos.ORIGIN, new BlockPos(world.getWidth() - 1, world.getHeight() - 1, world.getLength() - 1))) {
             final IBlockState blockState = world.getBlockState(pos);
             final Block block = blockState.getBlock();
@@ -41,6 +42,7 @@ public class Paster {
             mcWorld.sendPacketToServer(new CPacketChatMessage("/setblock " + cmd));
             count++;
         }
+        mcWorld.sendPacketToServer(new CPacketChatMessage("/gamerule doTileDrops true"));
         mcWorld.sendPacketToServer(new CPacketChatMessage("/gamerule sendCommandFeedback true"));
         player.sendMessage(new TextComponentTranslation(Names.Messages.FINISHED_PASTING, count));
     }
