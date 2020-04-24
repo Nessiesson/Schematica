@@ -29,6 +29,7 @@ schematica.gui.format=Format: %s
 schematica.gui.moveschematic=Move schematic
 schematica.gui.materials=Materials
 schematica.gui.printer=Printer
+schematica.gui.paste=Paste
 schematica.gui.operations=Operations
 schematica.gui.unload=Unload
 schematica.gui.all=ALL
@@ -120,6 +121,8 @@ schematica.config.schematicDirectory=Schematic Directory
 schematica.config.schematicDirectory.tooltip=Schematic directory.
 schematica.config.extraAirBlocks=Extra Air Blocks
 schematica.config.extraAirBlocks.tooltip=Extra blocks to consider as air for the schematic renderer.
+schematica.config.pasteAir=Paste Airblocks
+schematica.config.pasteAir.tooltip=Place air when pasting, this removes the existing structure.
 
 # gui - config - server
 schematica.config.printerEnabled=Allow Printer
@@ -180,6 +183,7 @@ schematica.command.replace.success=Replaced %s blocks.
 
 # messages
 schematica.message.togglePrinter=Printer: %s
+schematica.message.finishedPasting=Pasted %s blocks.
 schematica.message.invalidBlock="%s" does not exist.
 schematica.message.invalidProperty="%s" is not a valid property.
 schematica.message.invalidPropertyForBlock="%s" is not a valid property for "%s".

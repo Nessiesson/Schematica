@@ -47,6 +47,7 @@ public class ConfigurationHandler {
     public static final String SCHEMATIC_DIRECTORY_STR = "./schematics";
     public static final File SCHEMATIC_DIRECTORY_DEFAULT = new File(Schematica.proxy.getDataDirectory(), SCHEMATIC_DIRECTORY_STR);
     public static final String[] EXTRA_AIR_BLOCKS_DEFAULT = {};
+    public static final boolean PASTE_AIR_DEFAULT = false;
     public static final String SORT_TYPE_DEFAULT = "";
     public static final boolean PRINTER_ENABLED_DEFAULT = true;
     public static final boolean SAVE_ENABLED_DEFAULT = true;
@@ -72,6 +73,7 @@ public class ConfigurationHandler {
     public static final Queue<Integer> swapSlotsQueue = new ArrayDeque<Integer>();
     public static File schematicDirectory = SCHEMATIC_DIRECTORY_DEFAULT;
     public static String[] extraAirBlocks = Arrays.copyOf(EXTRA_AIR_BLOCKS_DEFAULT, EXTRA_AIR_BLOCKS_DEFAULT.length);
+    public static boolean pasteAir = PASTE_AIR_DEFAULT;
     public static String sortType = SORT_TYPE_DEFAULT;
     public static boolean printerEnabled = PRINTER_ENABLED_DEFAULT;
     public static boolean saveEnabled = SAVE_ENABLED_DEFAULT;
@@ -96,6 +98,7 @@ public class ConfigurationHandler {
     public static Property[] propSwapSlots = new Property[SWAP_SLOTS_DEFAULT.length];
     public static Property propSchematicDirectory = null;
     public static Property propExtraAirBlocks = null;
+    public static Property propPasteAir = null;
     public static Property propSortType = null;
     public static Property propPrinterEnabled = null;
     public static Property propSaveEnabled = null;
@@ -214,6 +217,10 @@ public class ConfigurationHandler {
         propExtraAirBlocks = configuration.get(Names.Config.Category.GENERAL, Names.Config.EXTRA_AIR_BLOCKS, EXTRA_AIR_BLOCKS_DEFAULT, Names.Config.EXTRA_AIR_BLOCKS_DESC);
         propExtraAirBlocks.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.EXTRA_AIR_BLOCKS);
         extraAirBlocks = propExtraAirBlocks.getStringList();
+
+        propPasteAir = configuration.get(Names.Config.Category.GENERAL, Names.Config.PASTE_AIR, PASTE_AIR_DEFAULT, Names.Config.PASTE_AIR_DESC);
+        propPasteAir.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.PASTE_AIR);
+        pasteAir = propPasteAir.getBoolean(PASTE_AIR_DEFAULT);
 
         propSortType = configuration.get(Names.Config.Category.GENERAL, Names.Config.SORT_TYPE, SORT_TYPE_DEFAULT, Names.Config.SORT_TYPE_DESC);
         propSortType.setShowInGui(false);
