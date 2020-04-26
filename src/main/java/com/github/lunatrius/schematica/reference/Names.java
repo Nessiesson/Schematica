@@ -51,8 +51,6 @@ public final class Names {
         public static final String SCHEMATIC_DIRECTORY_DESC = "Schematic directory.";
         public static final String EXTRA_AIR_BLOCKS = "extraAirBlocks";
         public static final String EXTRA_AIR_BLOCKS_DESC = "Extra blocks to consider as air for the schematic renderer.";
-        public static final String PASTE_AIR = "pasteAir";
-        public static final String PASTE_AIR_DESC = "Place air when pasting, this removes the existing structure.";
         public static final String SORT_TYPE = "sortType";
         public static final String SORT_TYPE_DESC = "Default sort type for the material list.";
 
@@ -165,6 +163,7 @@ public final class Names {
             public static final String MATERIALS = "schematica.gui.materials";
             public static final String PRINTER = "schematica.gui.printer";
             public static final String PASTE = "schematica.gui.paste";
+            public static final String PASTE_AIR = "schematica.gui.pasteair";
             public static final String OPERATIONS = "schematica.gui.operations";
 
             public static final String UNLOAD = "schematica.gui.unload";
