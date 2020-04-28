@@ -15,7 +15,9 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class Paster {
@@ -45,10 +47,14 @@ public class Paster {
 
     public static void paste(final EntityPlayer player, final SchematicWorld world, final World mcWorld) {
         int count = 0;
-        int errorCount = 0;
-        List<MBlockPos> blocksToPlace = Lists.newArrayList(BlockPosHelper.getAllInBox(BlockPos.ORIGIN, new BlockPos(world.getWidth() - 1, world.getHeight() - 1, world.getLength() - 1)));
+        List<MBlockPos> blocksToPlace = new ArrayList<>();
+        for (MBlockPos pos : BlockPosHelper.getAllInBox(BlockPos.ORIGIN, new BlockPos(world.getWidth() - 1, world.getHeight() - 1, world.getLength() - 1))) {
+            blocksToPlace.add(new MBlockPos(pos));
+        }
+        Map<MBlockPos, Integer> failedBlocks = new HashMap<>();
         mcWorld.sendPacketToServer(new CPacketChatMessage("/gamerule sendCommandFeedback false"));
         mcWorld.sendPacketToServer(new CPacketChatMessage("/gamerule doTileDrops false"));
+        System.out.println(blocksToPlace);
         while (blocksToPlace.size() > 0) {
             MBlockPos pos = blocksToPlace.get(0);
             blocksToPlace.remove(0);
@@ -57,11 +63,22 @@ public class Paster {
             final BlockPos mcPos = new BlockPos(world.position.add(pos));
             if (!BlockStateHelper.areBlockStatesEqual(blockState, mcWorld.getBlockState(mcPos))) {
                 if (pasteAir || !(block.isAir(blockState, mcWorld, mcPos))) {
+                    System.out.println("Blocks to place: " + blocksToPlace.size());
                     if (setBlockAt(blockState, mcPos, mcWorld)) {
                         count++;
                     } else {
-                        errorCount++;
-                        blocksToPlace.add(blocksToPlace.size() -1, new MBlockPos(pos));
+                        if (failedBlocks.containsKey(pos)) {
+                            if (failedBlocks.get(pos) < 5 ) {
+                                System.out.println("Failed placing " + block + " at " + pos + " " + failedBlocks.get(pos) + " times trying again...");
+                                blocksToPlace.add(blocksToPlace.size() - 1, new MBlockPos(pos));
+                                failedBlocks.put(pos, failedBlocks.get(pos) + 1);
+                            } else {
+                                System.out.println("Failed placing " + block + " at " + pos + " " + failedBlocks.get(pos) + " times");
+                            }
+                        } else {
+                            blocksToPlace.add(blocksToPlace.size() - 1, new MBlockPos(pos));
+                            failedBlocks.put(pos, 1);
+                        }
                     }
                 }
             }
