@@ -247,7 +247,7 @@ public class GuiSchematicControl extends GuiScreenBase {
                 final boolean isPrinting = this.printer.togglePrinting();
                 this.btnPrint.displayString = isPrinting ? this.strOn : this.strOff;
             }
-            else if (guiButton.id == this.btnPaste.id) {
+            else if (guiButton.id == this.btnPaste.id && mc.player.isCreative()) {
                 paster.paste(this.mc.player, this.schematic, this.mc.player.world);
             }
             else if (guiButton.id == this.btnPasteAir.id) {
