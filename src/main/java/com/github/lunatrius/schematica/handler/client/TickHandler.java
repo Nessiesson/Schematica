@@ -58,7 +58,7 @@ public class TickHandler {
             this.minecraft.mcProfiler.endSection();
             this.minecraft.mcProfiler.startSection("paster");
             final Paster paster = Paster.INSTANCE;
-            if (paster.isPasting() && paster.needsProcessing()) {
+            if (paster.isPasting()) {
                 paster.processQueue();
             }
             this.minecraft.mcProfiler.endSection();

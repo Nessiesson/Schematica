@@ -38,10 +38,6 @@ public class Paster {
         return blocksToPaste.size() > 0;
     }
 
-    public boolean needsProcessing() {
-        return blocksToPaste.size() > 0;
-    }
-
     private static boolean blockNedsSupport(Block block, BlockPos pos){
         return (block instanceof BlockBush ||
                 block instanceof BlockFlowerPot ||
