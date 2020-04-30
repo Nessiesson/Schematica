@@ -2,6 +2,7 @@ package com.github.lunatrius.schematica.handler.client;
 
 import com.github.lunatrius.schematica.Schematica;
 import com.github.lunatrius.schematica.client.printer.SchematicPrinter;
+import com.github.lunatrius.schematica.client.util.Paster;
 import com.github.lunatrius.schematica.client.world.SchematicWorld;
 import com.github.lunatrius.schematica.handler.ConfigurationHandler;
 import com.github.lunatrius.schematica.proxy.ClientProxy;
@@ -54,7 +55,12 @@ public class TickHandler {
 
                 printer.print(world, player);
             }
-
+            this.minecraft.mcProfiler.endSection();
+            this.minecraft.mcProfiler.startSection("paster");
+            final Paster paster = Paster.INSTANCE;
+            if (paster.isPasting() && paster.needsProcessing()) {
+                paster.processQueue();
+            }
             this.minecraft.mcProfiler.endSection();
         }
 
@@ -63,6 +69,8 @@ public class TickHandler {
             ClientProxy.isPendingReset = false;
             Reference.logger.info("Client settings have been reset.");
         }
+
+
 
         this.minecraft.mcProfiler.endSection();
     }

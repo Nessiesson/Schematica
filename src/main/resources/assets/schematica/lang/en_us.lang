@@ -183,6 +183,7 @@ schematica.command.replace.success=Replaced %s blocks.
 # messages
 schematica.message.togglePrinter=Printer: %s
 schematica.message.finishedPasting=Pasted %s blocks.
+schematica.message.creativeOnlyPasting=Pasting is only allowed in Creative mode
 schematica.message.invalidBlock="%s" does not exist.
 schematica.message.invalidProperty="%s" is not a valid property.
 schematica.message.invalidPropertyForBlock="%s" is not a valid property for "%s".

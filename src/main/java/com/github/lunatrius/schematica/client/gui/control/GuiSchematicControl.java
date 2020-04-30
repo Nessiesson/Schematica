@@ -19,6 +19,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.client.config.GuiUnicodeGlyphButton;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.lwjgl.input.Keyboard;
@@ -247,8 +248,12 @@ public class GuiSchematicControl extends GuiScreenBase {
                 final boolean isPrinting = this.printer.togglePrinting();
                 this.btnPrint.displayString = isPrinting ? this.strOn : this.strOff;
             }
-            else if (guiButton.id == this.btnPaste.id && mc.player.isCreative()) {
-                paster.paste(this.mc.player, this.schematic, this.mc.player.world);
+            else if (guiButton.id == this.btnPaste.id) {
+                if (mc.player.isCreative()) {
+                    paster.paste(this.mc.player, this.schematic, this.mc.player.world);
+                } else {
+                    mc.player.sendMessage(new TextComponentTranslation(Names.Messages.CREATIVE_ONLY_PASTING));
+                }
             }
             else if (guiButton.id == this.btnPasteAir.id) {
                 paster.togglePasteAir(this.schematic);

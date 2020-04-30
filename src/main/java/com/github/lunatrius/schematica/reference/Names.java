@@ -136,6 +136,7 @@ public final class Names {
     public static final class Messages {
         public static final String TOGGLE_PRINTER = "schematica.message.togglePrinter";
         public static final String FINISHED_PASTING = "schematica.message.finishedPasting";
+        public static final String CREATIVE_ONLY_PASTING = "schematica.message.creativeOnlyPasting";
 
         public static final String INVALID_BLOCK = "schematica.message.invalidBlock";
         public static final String INVALID_PROPERTY = "schematica.message.invalidProperty";
