@@ -122,6 +122,7 @@ public class Paster {
         mcWorld.sendPacketToServer(new CPacketChatMessage("/gamerule sendCommandFeedback false"));
         mcWorld.sendPacketToServer(new CPacketChatMessage("/gamerule doTileDrops false"));
     }
+
     public void processQueue() {
         long nextFreeTick = Collections.max(blocksToPaste.values()) + 3;
         for (MBlockPos pos : getBlocksForTick(mcWorld.getTotalWorldTime())) {

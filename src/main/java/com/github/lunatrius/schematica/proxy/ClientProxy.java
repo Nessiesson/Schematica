@@ -122,6 +122,14 @@ public class ClientProxy extends CommonProxy {
         }
     }
 
+    public static void moveSchematicToBlockPos(final SchematicWorld schematic, MBlockPos pos) {
+        if (schematic != null && pos != null) {
+            schematic.position.x = pos.getX();
+            schematic.position.y = pos.getY();
+            schematic.position.z = pos.getZ();
+        }
+    }
+
     public static void moveSchematicToPlayer(final SchematicWorld schematic) {
         if (schematic != null) {
             final MBlockPos position = schematic.position;
@@ -242,6 +250,7 @@ public class ClientProxy extends CommonProxy {
         Reference.logger.debug("Loaded {} [w:{},h:{},l:{}]", filename, world.getWidth(), world.getHeight(), world.getLength());
 
         ClientProxy.schematic = world;
+        ClientProxy.schematic.name = filename;
         RenderSchematic.INSTANCE.setWorldAndLoadRenderers(world);
         SchematicPrinter.INSTANCE.setSchematic(world);
         world.isRendering = true;

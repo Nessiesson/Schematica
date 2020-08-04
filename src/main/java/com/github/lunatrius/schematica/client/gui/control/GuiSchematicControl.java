@@ -250,7 +250,9 @@ public class GuiSchematicControl extends GuiScreenBase {
             }
             else if (guiButton.id == this.btnPaste.id) {
                 if (mc.player.isCreative()) {
-                    paster.paste(this.mc.player, this.schematic, this.mc.player.world);
+                    if (this.schematic.isRendering) {
+                        paster.paste(this.mc.player, this.schematic, this.mc.player.world);
+                    }
                 } else {
                     mc.player.sendMessage(new TextComponentTranslation(Names.Messages.CREATIVE_ONLY_PASTING));
                 }

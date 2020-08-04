@@ -61,6 +61,7 @@ public class TickHandler {
             if (paster.isPasting()) {
                 paster.processQueue();
             }
+            Schematica.schematicPositionHistory.put(schematic.name, schematic.position);
             this.minecraft.mcProfiler.endSection();
         }
 

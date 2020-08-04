@@ -74,6 +74,7 @@ public class SchematicWorld extends WorldClient {
     public boolean isRendering = false;
     public LayerMode layerMode = LayerMode.ALL;
     public int renderingLayer = 0;
+    public String name = "";
 
     public SchematicWorld(final ISchematic schematic) {
         super(null, WORLD_SETTINGS, 0, EnumDifficulty.PEACEFUL, Minecraft.getMinecraft().mcProfiler);
