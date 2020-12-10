@@ -162,6 +162,7 @@ public class GuiSchematicControl extends GuiScreenBase {
         this.btnRotate.enabled = this.schematic != null;
         this.btnMaterials.enabled = this.schematic != null;
         this.btnPrint.enabled = this.schematic != null && this.printer.isEnabled();
+        this.btnPaste.enabled = this.schematic != null;
         this.btnPasteAir.enabled = this.schematic != null;
 
         setMinMax(this.numericX);
