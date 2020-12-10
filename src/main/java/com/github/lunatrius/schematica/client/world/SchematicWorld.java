@@ -53,6 +53,12 @@ public class SchematicWorld extends WorldClient {
             public boolean shouldUseLayer(final SchematicWorld world, final int layer) {
                 return layer <= world.renderingLayer;
             }
+        },
+        ALL_ABOVE(Names.Gui.Control.MODE_ABOVE) {
+            @Override
+            public boolean shouldUseLayer(final SchematicWorld world, final int layer) {
+                return layer >= world.renderingLayer;
+            }
         };
         public abstract boolean shouldUseLayer(SchematicWorld world, int layer);
 

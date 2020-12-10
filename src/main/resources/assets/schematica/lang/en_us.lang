@@ -36,6 +36,7 @@ schematica.gui.unload=Unload
 schematica.gui.all=ALL
 schematica.gui.layers=Layers
 schematica.gui.below=All below
+schematica.gui.above=All above
 schematica.gui.hide=Hide
 schematica.gui.show=Show
 schematica.gui.movehere=Move here
