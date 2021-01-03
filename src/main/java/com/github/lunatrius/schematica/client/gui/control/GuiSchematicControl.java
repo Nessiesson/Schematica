@@ -55,6 +55,8 @@ public class GuiSchematicControl extends GuiScreenBase {
     private GuiButton btnPaste = null;
     private GuiButton btnPasteAir = null;
 
+    private GuiButton btnSeeThrough = null;
+
     private final String strMoveSchematic = I18n.format(Names.Gui.Control.MOVE_SCHEMATIC);
     private final String strOperations = I18n.format(Names.Gui.Control.OPERATIONS);
     private final String strUnload = I18n.format(Names.Gui.Control.UNLOAD);
@@ -62,6 +64,7 @@ public class GuiSchematicControl extends GuiScreenBase {
     private final String strPrinter = I18n.format(Names.Gui.Control.PRINTER);
     private final String strPaste = I18n.format(Names.Gui.Control.PASTE);
     private final String strPasteAir = I18n.format(Names.Gui.Control.PASTE_AIR);
+    private final String strSeeThrough = I18n.format(Names.Gui.Control.SEE_THROUGH);
     private final String strHide = I18n.format(Names.Gui.Control.HIDE);
     private final String strShow = I18n.format(Names.Gui.Control.SHOW);
     private final String strX = I18n.format(Names.Gui.X);
@@ -146,6 +149,9 @@ public class GuiSchematicControl extends GuiScreenBase {
         this.btnPasteAir = new GuiButton(id++, 100, this.height - 30, 80, 20, this.paster.isPastingAir() ? this.strOn : this.strOff);
         this.buttonList.add(this.btnPasteAir);
 
+        this.btnSeeThrough = new GuiButton(id++, 100, this.height - 110, 80, 20, RenderSchematic.INSTANCE.seeThroughBlocks ? this.strOn : this.strOff);
+        this.buttonList.add(this.btnSeeThrough);
+
         this.numericX.setEnabled(this.schematic != null);
         this.numericY.setEnabled(this.schematic != null);
         this.numericZ.setEnabled(this.schematic != null);
@@ -164,6 +170,8 @@ public class GuiSchematicControl extends GuiScreenBase {
         this.btnPrint.enabled = this.schematic != null && this.printer.isEnabled();
         this.btnPaste.enabled = this.schematic != null;
         this.btnPasteAir.enabled = this.schematic != null;
+
+        this.btnSeeThrough.enabled = this.schematic != null;
 
         setMinMax(this.numericX);
         setMinMax(this.numericY);
@@ -248,8 +256,7 @@ public class GuiSchematicControl extends GuiScreenBase {
             } else if (guiButton.id == this.btnPrint.id && this.printer.isEnabled()) {
                 final boolean isPrinting = this.printer.togglePrinting();
                 this.btnPrint.displayString = isPrinting ? this.strOn : this.strOff;
-            }
-            else if (guiButton.id == this.btnPaste.id) {
+            } else if (guiButton.id == this.btnPaste.id) {
                 if (mc.player.isCreative()) {
                     if (this.schematic.isRendering) {
                         paster.paste(this.mc.player, this.schematic, this.mc.player.world);
@@ -257,10 +264,12 @@ public class GuiSchematicControl extends GuiScreenBase {
                 } else {
                     mc.player.sendMessage(new TextComponentTranslation(Names.Messages.CREATIVE_ONLY_PASTING));
                 }
-            }
-            else if (guiButton.id == this.btnPasteAir.id) {
+            } else if (guiButton.id == this.btnPasteAir.id) {
                 paster.togglePasteAir(this.schematic);
                 this.btnPasteAir.displayString = paster.isPastingAir() ? this.strOn : this.strOff;
+            } else if (guiButton.id == this.btnSeeThrough.id) {
+                RenderSchematic.INSTANCE.seeThroughBlocks = !RenderSchematic.INSTANCE.seeThroughBlocks;
+                this.btnSeeThrough.displayString = RenderSchematic.INSTANCE.seeThroughBlocks ? this.strOn : this.strOff;
             }
         }
     }
@@ -306,7 +315,9 @@ public class GuiSchematicControl extends GuiScreenBase {
         drawCenteredString(this.fontRenderer, this.strMaterials, 50, this.height - 125, 0xFFFFFF);
         drawCenteredString(this.fontRenderer, this.strPrinter, 50, this.height - 85, 0xFFFFFF);
         drawCenteredString(this.fontRenderer, this.strPaste, 50, this.height - 45, 0xFFFFFF);
+        drawCenteredString(this.fontRenderer, this.strSeeThrough, 140, this.height - 125, 0xFFFFFF);
         drawCenteredString(this.fontRenderer, this.strPasteAir, 140, this.height - 45, 0xFFFFFF);
+
         drawCenteredString(this.fontRenderer, this.strOperations, this.width - 50, this.height - 120, 0xFFFFFF);
 
         drawString(this.fontRenderer, this.strX, this.centerX - 65, this.centerY - 24, 0xFFFFFF);

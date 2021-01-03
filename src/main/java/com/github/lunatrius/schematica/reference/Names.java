@@ -186,6 +186,7 @@ public final class Names {
 
             public static final String SORT_PREFIX = "schematica.gui.material";
             public static final String DUMP = "schematica.gui.materialdump";
+            public static final String SEE_THROUGH = "schematica.gui.seethrough";
         }
 
         public static final String X = "schematica.gui.x";

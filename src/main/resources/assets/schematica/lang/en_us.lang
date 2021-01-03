@@ -47,6 +47,7 @@ schematica.gui.materialamount=Amount
 schematica.gui.materialavailable=Available
 schematica.gui.materialmissing=Missing
 schematica.gui.materialdump=Save to file
+schematica.gui.seethrough=Seethrough
 
 # gui - config - categories
 schematica.config.category.debug=Debug

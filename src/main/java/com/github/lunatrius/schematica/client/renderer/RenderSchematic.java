@@ -120,6 +120,8 @@ public class RenderSchematic extends RenderGlobal {
     private boolean displayListEntitiesDirty = true;
     private int frameCount = 0;
 
+    public boolean seeThroughBlocks = false;
+
     public RenderSchematic(final Minecraft minecraft) {
         super(minecraft);
         this.mc = minecraft;
@@ -312,7 +314,9 @@ public class RenderSchematic extends RenderGlobal {
         tessellator.draw();
 
         GlStateManager.depthMask(false);
+        if (this.seeThroughBlocks) GlStateManager.depthFunc(GL11.GL_ALWAYS);
         this.renderContainer.renderOverlay();
+        if (this.seeThroughBlocks) GlStateManager.depthFunc(GL11.GL_LEQUAL);
         GlStateManager.depthMask(true);
 
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
@@ -348,7 +352,9 @@ public class RenderSchematic extends RenderGlobal {
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+        if(this.seeThroughBlocks) GlStateManager.depthFunc(GL11.GL_ALWAYS);
         renderBlockLayer(BlockRenderLayer.SOLID, partialTicks, PASS, entity);
+        if(this.seeThroughBlocks) GlStateManager.depthFunc(GL11.GL_LEQUAL);
         renderBlockLayer(BlockRenderLayer.CUTOUT_MIPPED, partialTicks, PASS, entity);
         this.mc.getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).setBlurMipmap(false, false);
         renderBlockLayer(BlockRenderLayer.CUTOUT, partialTicks, PASS, entity);
