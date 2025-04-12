@@ -81,15 +81,20 @@ processResources {
 }
 
 repositories {
-    ivy {
+    /*ivy {
         name = 'lunatrius\' ivy repo'
         url 'http://mc.lunatri.us/files'
+    }*/
+    flatDir {
+        dirs 'libs'
     }
 }
 
 dependencies {
     deobfCompile group: group, name: 'LunatriusCore', version: "${project.version_minecraft}-${project.version_lunatriuscore}", classifier: 'universal'
 }
+
+tasks.getAssets.enabled = false
 
 def commonManifest = {
     if (project.hasProperty('extra_fmlat')) {
