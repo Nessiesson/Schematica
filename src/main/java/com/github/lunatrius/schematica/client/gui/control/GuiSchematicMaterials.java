@@ -103,6 +103,7 @@ public class GuiSchematicMaterials extends GuiScreenBase {
         super.drawScreen(x, y, partialTicks);
     }
 
+    // TODO: Make this respect sorting behaviour betterer
     private void dumpMaterialList(final List<BlockList.WrappedItemStack> blockList) {
         if (blockList.size() <= 0) {
             return;

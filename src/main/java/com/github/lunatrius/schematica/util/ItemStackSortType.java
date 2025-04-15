@@ -25,6 +25,16 @@ public enum ItemStackSortType {
     }),
     SIZE_DESC("amount", "\u2193", (Comparator<BlockList.WrappedItemStack>) (final BlockList.WrappedItemStack wrappedItemStackA, final BlockList.WrappedItemStack wrappedItemStackB) -> {
         return wrappedItemStackB.total - wrappedItemStackA.total;
+    }),
+    MISSING_ASC("missing", "\u2191", (Comparator<BlockList.WrappedItemStack>) (final BlockList.WrappedItemStack wrappedItemStackA, final BlockList.WrappedItemStack wrappedItemStackB) -> {
+        final int missingA = wrappedItemStackA.total - (wrappedItemStackA.placed + wrappedItemStackA.inventory);
+        final int missingB = wrappedItemStackB.total - (wrappedItemStackB.placed + wrappedItemStackB.inventory);
+        return missingA - missingB;
+    }),
+    MISSING_DESC("missing", "\u2193", (Comparator<BlockList.WrappedItemStack>) (final BlockList.WrappedItemStack wrappedItemStackA, final BlockList.WrappedItemStack wrappedItemStackB) -> {
+        final int missingA = wrappedItemStackA.total - (wrappedItemStackA.placed + wrappedItemStackA.inventory);
+        final int missingB = wrappedItemStackB.total - (wrappedItemStackB.placed + wrappedItemStackB.inventory);
+        return missingB - missingA;
     });
 
     private final Comparator<BlockList.WrappedItemStack> comparator;
