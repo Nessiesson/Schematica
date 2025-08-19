@@ -285,6 +285,7 @@ public class RenderSchematic extends RenderGlobal {
     }
 
     private void renderOverlay(final SchematicWorld schematic, final boolean isRenderingSchematic) {
+        RenderHelper.disableStandardItemLighting();
         GlStateManager.disableTexture2D();
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
@@ -322,6 +323,7 @@ public class RenderSchematic extends RenderGlobal {
         GL11.glDisable(GL11.GL_LINE_SMOOTH);
         GlStateManager.disableBlend();
         GlStateManager.enableTexture2D();
+        RenderHelper.enableStandardItemLighting();
     }
 
     private void renderWorld(final float partialTicks, final long finishTimeNano) {
