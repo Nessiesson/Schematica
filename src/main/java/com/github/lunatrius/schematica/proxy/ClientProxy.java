@@ -18,6 +18,7 @@ import com.github.lunatrius.schematica.reference.Reference;
 import com.github.lunatrius.schematica.world.schematic.SchematicFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
@@ -56,7 +57,7 @@ public class ClientProxy extends CommonProxy {
 
     private static final Minecraft MINECRAFT = Minecraft.getMinecraft();
 
-    public static void setPlayerData(final EntityPlayer player, final float partialTicks) {
+    public static void setPlayerData(final Entity player, final float partialTicks) {
         playerPosition.x = player.lastTickPosX + (player.posX - player.lastTickPosX) * partialTicks;
         playerPosition.y = player.lastTickPosY + (player.posY - player.lastTickPosY) * partialTicks;
         playerPosition.z = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partialTicks;
@@ -66,7 +67,7 @@ public class ClientProxy extends CommonProxy {
         rotationRender = MathHelper.floor(player.rotationYaw / 90) & 3;
     }
 
-    private static EnumFacing getOrientation(final EntityPlayer player) {
+    private static EnumFacing getOrientation(final Entity player) {
         if (player.rotationPitch > 45) {
             return EnumFacing.DOWN;
         } else if (player.rotationPitch < -45) {
